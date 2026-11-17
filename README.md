@@ -24,13 +24,9 @@ The finished static website is in `dist/`. `npm run preview` serves that output 
 
 ## GitHub Pages
 
-The repository destination has not been selected. This workspace has not been pushed or published.
+The public portfolio is hosted at [Piyush Story World](https://piyush-120898.github.io/piyush-story-world/). The source is in [Piyush-120898/piyush-story-world](https://github.com/Piyush-120898/piyush-story-world).
 
-1. Push the source and `public/assets/` to the intended repository's `main` branch. Include the MP4 files directly, not Git LFS pointers.
-2. In the repository's Settings → Pages, choose **GitHub Actions** as the source.
-3. Run the included **Deploy portfolio to GitHub Pages** workflow, or push to `main`.
-
-The workflow checks the source, builds `dist/`, uploads that folder and deploys it with GitHub's Pages action. All resource URLs are relative, so it works at both a repository subpath and a user-domain root. No custom domain or public URL has been invented.
+Push to `main` to publish an update. GitHub Actions checks the source, runs the Node.js static build and deploys `dist/` to Pages. The Node.js HTTP server is available for local use; Pages serves the generated HTML, JavaScript and assets.
 
 ## Contact destination
 
@@ -66,3 +62,4 @@ The desktop films activate sequentially even though they sit side by side. On mo
 Source checks and the static build pass. Both files have H.264 video and AAC audio. HTTP checks verify asset responses and 206 byte-range streaming. `scripts/check-scroll-thread.mjs` executes the production controller with layout fixtures and sampled SVG curves at widths from 320 to 1920 pixels, checking six ordered activations, reverse scrolling, CTA completion, resizing, reduced motion and settled animation frames. These logic checks do not replace browser testing.
 
 Browser-based visual and interaction QA was blocked because embedded browser access was unavailable and the Windows computer-use tool stopped when it could not reliably determine Chrome's current URL. Desktop/mobile appearance, playback, keyboard behavior, and reduced-motion behavior still need browser verification.
+
