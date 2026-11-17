@@ -124,7 +124,6 @@ ${films.map(renderFilm).join("\n")}
           <path d="m4 2 6 5-6 5" fill="none" stroke="#ffb38c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </marker>
       </defs>
-      <path class="journey-thread-rail" mask="url(#thread-content-mask)"/>
       <path class="journey-thread-measure" visibility="hidden"/>
       <path class="journey-thread-path" mask="url(#thread-content-mask)"/>
       <g mask="url(#thread-content-mask)">

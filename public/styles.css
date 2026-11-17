@@ -30,7 +30,6 @@
 main{position:relative;isolation:isolate}
 .journey-thread{position:absolute;top:0;left:0;display:block;z-index:8;pointer-events:none;overflow:hidden}
 .journey-thread-path{fill:none;stroke:url(#thread-color);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
-.journey-thread-rail{fill:none;stroke:url(#thread-color);stroke-width:1;opacity:.085;vector-effect:non-scaling-stroke}
 .journey-thread-measure{fill:none;stroke:none}
 .thread-head-halo{fill:#ff823f;opacity:.23;filter:blur(2px)}
 .thread-head-point{fill:#ffe4bd;stroke:#f66b2c;stroke-width:1.1}
@@ -79,8 +78,6 @@ main{overflow-x:clip}
   .hero-copy .button{min-height:32px;font-size:12px;padding:8px 16px;gap:10px}
   .hero-copy .button svg{width:9px;height:11px}
 }
-/* The entire route reads as ink; scrolling adds the luminous leading stroke. */
-.journey-thread-rail{stroke:#ec5826;stroke-width:1.8;opacity:.76;stroke-linecap:round;stroke-linejoin:round}
 .journey-thread-path{stroke-width:2.4}
 @media(max-width:700px){
   .film-project{grid-template-columns:1.5fr 1fr}

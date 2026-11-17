@@ -4,7 +4,6 @@
   const main = document.querySelector('main');
   const svg = document.querySelector('.journey-thread');
   const line = svg.querySelector('.journey-thread-path');
-  const rail = svg.querySelector('.journey-thread-rail');
   const measure = svg.querySelector('.journey-thread-measure');
   const head = svg.querySelector('.journey-thread-head');
   const mask = svg.querySelector('#thread-content-mask');
@@ -36,7 +35,8 @@
     if (motion.matches) currentLength = targetLength;
     else currentLength += (targetLength - currentLength) * (1 - Math.exp(-delta / 65));
     if (Math.abs(targetLength - currentLength) < 0.3) currentLength = targetLength;
-    const visible = motion.matches ? totalLength : currentLength;
+    const visible = currentLength;
+    line.style.visibility = visible > 0 ? 'visible' : 'hidden';
     line.style.strokeDashoffset = String(Math.max(0, totalLength - visible));
     const complete = visible >= totalLength - 0.5;
     if (complete && totalLength > 0) line.setAttribute('marker-end', 'url(#thread-arrow)');
@@ -166,7 +166,8 @@
       curve([width*.64,contact.top+14],[button.left-10,button.top-45],[button.left+12,button.top-7],true);
     }
     const path = d.join(' ');
-    line.setAttribute('d', path); rail.setAttribute('d', path);
+    line.style.visibility = 'hidden';
+    line.setAttribute('d', path);
     totalLength = line.getTotalLength();
     line.style.strokeDasharray = `${totalLength} ${totalLength}`;
     line.style.strokeDashoffset = String(totalLength);

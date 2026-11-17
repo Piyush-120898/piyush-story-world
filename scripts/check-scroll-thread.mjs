@@ -111,7 +111,7 @@ function run(width, viewport = width <= 700 ? 844 : 900) {
   assert.equal(Number(el.svg.attrs.height), layout.main[3]);
   assert(!/NaN|undefined|Infinity/.test(el.path.attrs.d));
   motion.matches = true; events.motion(); flush();
-  assert.equal(Number(el.path.style.strokeDashoffset), 0, 'Reduced motion shows a static line');
+  assert.equal(Number(el.path.style.strokeDashoffset), el.path.getTotalLength(), 'Reduced motion also hides the untraveled path');
   assert.equal(el.head.attrs.opacity, '0', 'Reduced motion hides the moving point');
   return width;
 }
