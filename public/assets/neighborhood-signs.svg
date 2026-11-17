@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640">
+ <g transform="matrix(1 .38 0 1 56 244)" fill="#24364a" font-family="Arial,sans-serif" font-weight="700">
+ <path d="M16 7C8 1 1 5 2 15c1 8 5 24 9 25 4 0 2-15 6-15s4 15 8 15c4-1 8-23 8-28 0-9-9-11-17-5Z" fill="none" stroke="#24364a" stroke-width="2.8"/>
+ <text x="42" y="20" font-size="21" letter-spacing="1">DENTAL</text><text x="42" y="41" font-size="19" letter-spacing="2">CLINIC</text></g>
+ <g transform="translate(852 449) rotate(-1)" font-family="Arial,sans-serif" text-anchor="middle" font-weight="700"><rect width="85" height="38" rx="4" fill="#193044"/><text x="42.5" y="17" fill="#fff4df" font-size="17">COMFORT</text><text x="42.5" y="30" fill="white" font-size="10">HVAC SERVICES</text></g></svg>

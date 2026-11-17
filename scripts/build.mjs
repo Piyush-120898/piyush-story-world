@@ -1,0 +1,10 @@
+import { mkdir, cp, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { renderPage } from '../app/page.mjs';
+const root = resolve(import.meta.dirname, '..');
+const output = resolve(root, 'dist');
+await mkdir(output, { recursive: true });
+await writeFile(resolve(root, 'public/index.html'), renderPage());
+await cp(resolve(root, 'public'), output, { recursive: true });
+await writeFile(resolve(output, '.nojekyll'), '');
+console.log('Built static portfolio in ' + output);

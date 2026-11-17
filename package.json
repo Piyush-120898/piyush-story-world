@@ -1,0 +1,17 @@
+{
+  "name": "piyush-story-world",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Character-led animated advertising portfolio by Piyush",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node --watch server.mjs --dev",
+    "build": "node scripts/build.mjs",
+    "preview": "node server.mjs --preview",
+    "check": "node --check public/main.js && node --check public/site-config.js && node --check public/story-thread.js && node scripts/check.mjs && node scripts/check-scroll-thread.mjs",
+    "start": "node server.mjs"
+  }
+}

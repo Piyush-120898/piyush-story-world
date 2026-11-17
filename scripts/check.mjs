@@ -1,0 +1,17 @@
+import { readFile, stat } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import assert from 'node:assert/strict';
+const root = resolve(import.meta.dirname, '..', 'public');
+const { renderPage } = await import('../app/page.mjs');
+const html = renderPage();
+const css = await readFile(resolve(root, 'styles.css'), 'utf8');
+const refs = [...html.matchAll(/(?:src|href|poster|data-src|srcset)="\.\/([^"#]+)"/g)].map(m => m[1]);
+refs.push(...[...css.matchAll(/url\('\.\/([^']+)'\)/g)].map(m => m[1]));
+for (const ref of new Set(refs)) assert((await stat(resolve(root, ref))).isFile(), 'Missing asset: ' + ref);
+const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
+assert.equal(ids.length, new Set(ids).size, 'Duplicate HTML IDs');
+for (const match of html.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(match[1]), 'Broken anchor: ' + match[1]);
+assert.equal((html.match(/<video\b/g) || []).length, 2, 'Two real films required');
+assert.equal((html.match(/preload="none"/g) || []).length, 2, 'Films should load on demand');
+assert(css.includes('prefers-reduced-motion:reduce'), 'Reduced motion support required');
+console.log(`Checked ${new Set(refs).size} local asset references, navigation anchors, two lazy video players, and reduced-motion styles.`);
