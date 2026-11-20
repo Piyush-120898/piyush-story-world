@@ -47,11 +47,12 @@ function run(width, viewport = width <= 700 ? 844 : 900) {
     getPointAtLength(length) { return this.samples().find(p => p.length >= length) || this.samples().at(-1); }
   }
   const keys = ['main','svg','path','rail','measure','head','mask','base','cutouts','gradient','turn','hero','wave','first','second','studio','icon1','icon2','icon3','button','contact','project1','project2','step1','step2','step3'];
-  keys.push('third','fourth','project3','project4');
+  keys.push('third','fourth','project3','project4','parkSeam','parkMask');
   const el = Object.fromEntries(keys.map(key => [key, new Element(key)]));
   Object.defineProperties(el.main, { clientWidth: { get: () => layout.main[2] }, offsetHeight: { get: () => layout.main[3] } });
   const selectors = { main:'main','.journey-thread':'svg','.journey-thread-path':'path','.journey-thread-rail':'rail','.journey-thread-measure':'measure','.journey-thread-head':'head',
     '#thread-content-mask':'mask','.thread-mask-base':'base','.thread-content-cutouts':'cutouts','#thread-color':'gradient','.thread-color-turn':'turn',
+    '.park-seam':'parkSeam','.thread-park-wave':'parkMask',
     '.hero':'hero','.film-wave':'wave','#smile-video':'first','#comfort-video':'second','.studio':'studio','[data-contact]':'button','.contact':'contact' };
   const select = key => el[selectors[key]];
   el.svg.querySelector = select;
@@ -83,6 +84,7 @@ function run(width, viewport = width <= 700 ? 844 : 900) {
       button:[w*(phone?.08:.73),phone?2340:2450,phone?w*.7:250,54] };
     const offset = phone ? 1250 : 1550;
     boxes.main[3] += offset;
+    boxes.parkSeam = [0,boxes.second[1]+boxes.second[3]+80,w,phone?60:80];
     for (const key of ['studio','contact','icon1','icon2','icon3','button']) boxes[key][1] += offset;
     boxes.third = [...boxes.first]; boxes.third[1] += offset;
     boxes.fourth = [...boxes.second]; boxes.fourth[1] += offset;

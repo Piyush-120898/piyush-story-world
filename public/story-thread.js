@@ -8,6 +8,7 @@
   const head = svg.querySelector('.journey-thread-head');
   const mask = svg.querySelector('#thread-content-mask');
   const maskBase = svg.querySelector('.thread-mask-base');
+  const parkWaveMask = svg.querySelector('.thread-park-wave');
   const gradient = svg.querySelector('#thread-color');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const protectedElements = [...document.querySelectorAll(
@@ -192,6 +193,9 @@
     mask.setAttribute('x', '0'); mask.setAttribute('y', '0');
     mask.setAttribute('width', width); mask.setAttribute('height', height);
     maskBase.setAttribute('width', width); maskBase.setAttribute('height', height);
+    const seam = bounds('.park-seam');
+    parkWaveMask.setAttribute('transform',
+      `translate(${seam.left} ${seam.top}) scale(${seam.width / 1440} ${seam.height / 90})`);
     gradient.setAttribute('y2', button.top);
     svg.querySelector('.thread-color-turn').setAttribute('offset', `${Math.min(96, contact.top / button.top * 100)}%`);
     let index = 0;

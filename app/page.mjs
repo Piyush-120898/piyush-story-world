@@ -2,6 +2,7 @@ import { films } from './films.mjs';
 
 const escape = text => text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const lines = values => values.map(escape).join('<br>');
+const sectionWave = 'M0 30C330 -50 850 140 1440 20';
 
 function renderFilm(film, i) {
   return `        <article class="film-project${i % 2 ? " film-project-reverse" : ""}" aria-labelledby="${film.id}-title">
@@ -31,6 +32,20 @@ export function renderPage() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    // Set the entry policy before the browser finds an anchor or restores a previous position.
+    history.scrollRestoration = 'manual';
+    function clearEntryFragment() {
+      if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+    }
+    clearEntryFragment();
+    window.addEventListener('pageshow', event => {
+      if (event.persisted) {
+        clearEntryFragment();
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    });
+  </script>
   <meta name="theme-color" content="#10213d">
   <meta name="description" content="Character-led animated films by Piyush for orthodontic practices, HVAC businesses, Pilates studios and dog trainers.">
   <meta property="og:title" content="Piyush — Animated stories. Real-world businesses.">
@@ -83,7 +98,7 @@ ${films.slice(0, 2).map(renderFilm).join("\n")}
     </section>
 
     <section class="park-scene" id="more-stories" aria-labelledby="park-title">
-      <svg class="park-seam" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V3C1000 97 480 95 0 15Z"/></svg>
+      <svg class="park-seam" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="${sectionWave}V0H0Z"/></svg>
       <picture>
         <source media="(max-width: 700px)" srcset="./assets/pilates-park-small.webp">
         <img src="./assets/pilates-park.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Inside a sunlit Pilates studio, clients exercise on wooden reformers. Through the window, Rocky and his owner work with a dog trainer in the park.">
@@ -101,7 +116,7 @@ ${films.slice(2).map((film, i) => renderFilm(film, i + 2)).join("\n")}
     </section>
 
     <section class="studio" id="studio" aria-labelledby="studio-title">
-      <svg class="studio-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C330 -50 850 140 1440 20V90H0Z"/></svg>
+      <svg class="studio-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="${sectionWave}V90H0Z"/></svg>
       <div class="studio-inner">
         <div class="studio-intro">
           <p class="eyebrow">The person behind the pictures</p>
@@ -130,6 +145,7 @@ ${films.slice(2).map((film, i) => renderFilm(film, i + 2)).join("\n")}
       <defs>
         <mask id="thread-content-mask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse">
           <rect class="thread-mask-base" fill="white"/>
+          <path class="thread-park-wave" fill="black" d="${sectionWave}V90H0Z"/>
           <g class="thread-content-cutouts" fill="black"></g>
         </mask>
         <linearGradient id="thread-color" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="2400">

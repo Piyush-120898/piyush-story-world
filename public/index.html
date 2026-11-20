@@ -3,6 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    // Set the entry policy before the browser finds an anchor or restores a previous position.
+    history.scrollRestoration = 'manual';
+    function clearEntryFragment() {
+      if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+    }
+    clearEntryFragment();
+    window.addEventListener('pageshow', event => {
+      if (event.persisted) {
+        clearEntryFragment();
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    });
+  </script>
   <meta name="theme-color" content="#10213d">
   <meta name="description" content="Character-led animated films by Piyush for orthodontic practices, HVAC businesses, Pilates studios and dog trainers.">
   <meta property="og:title" content="Piyush — Animated stories. Real-world businesses.">
@@ -94,7 +108,7 @@
     </section>
 
     <section class="park-scene" id="more-stories" aria-labelledby="park-title">
-      <svg class="park-seam" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V3C1000 97 480 95 0 15Z"/></svg>
+      <svg class="park-seam" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C330 -50 850 140 1440 20V0H0Z"/></svg>
       <picture>
         <source media="(max-width: 700px)" srcset="./assets/pilates-park-small.webp">
         <img src="./assets/pilates-park.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Inside a sunlit Pilates studio, clients exercise on wooden reformers. Through the window, Rocky and his owner work with a dog trainer in the park.">
@@ -178,6 +192,7 @@
       <defs>
         <mask id="thread-content-mask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse">
           <rect class="thread-mask-base" fill="white"/>
+          <path class="thread-park-wave" fill="black" d="M0 30C330 -50 850 140 1440 20V90H0Z"/>
           <g class="thread-content-cutouts" fill="black"></g>
         </mask>
         <linearGradient id="thread-color" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="2400">
