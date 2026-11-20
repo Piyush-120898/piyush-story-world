@@ -19,8 +19,7 @@ function renderFilm(film, i) {
               </video>
               <button class="play-overlay" type="button" aria-label="Play ${escape(film.title.join(" "))}"><span class="play-circle"><svg viewBox="0 0 16 18" aria-hidden="true"><path d="M2 1 15 9 2 17Z" fill="currentColor"/></svg></span><span class="play-label">Watch the film <span aria-hidden="true">↗</span></span></button>
               <span class="film-duration" aria-hidden="true">${film.duration}</span>
-            </div>
-            ${film.note ? `<p class="film-note">${lines(film.note)}</p>` : ""}
+            </div>${film.note ? `\n            <p class="film-note">${lines(film.note)}</p>` : ""}
             <p class="playback-status" role="status"></p>
           </div>
         </article>`;
