@@ -35,5 +35,22 @@ export const films = [
       "For the businesses that",
       "make a house feel like home."
     ]
+  },
+  {
+    id: "balance",
+    title: ["Find", "your", "balance"],
+    category: ["Pilates studios"],
+    slug: "find-your-balance",
+    description: "Find your balance — Pilates studio animated film",
+    duration: "01:16",
+    aspectRatio: "576 / 1024"
+  },
+  {
+    id: "rocky",
+    title: ["Rocky’s", "next", "chapter"],
+    category: ["Dog training"],
+    slug: "rockys-next-chapter",
+    description: "Rocky’s next chapter — dog training animated film",
+    duration: "01:09"
   }
 ];

@@ -14,7 +14,7 @@
     '.site-header, .hero-copy, .film-caption, .film-player, .film-note, ' +
     '.playback-status, .section-heading, .explore-studio, .studio-intro, ' +
     '.process-intro, .process-icon, .process-steps h3, .process-steps p, ' +
-    '.contact-inner > div, [data-contact], footer'
+    '.contact-inner > div, [data-contact], footer, #park-title, .park-thread-mask'
   )];
   const cutouts = svg.querySelector('.thread-content-cutouts');
   const masks = [];
@@ -97,8 +97,8 @@
         x: r.left - origin.left + r.width / 2, y: r.top - origin.top + r.height / 2 };
     }
     const hero = bounds('.hero'), wave = bounds('.film-wave');
-    const first = bounds('#smile-video'), second = bounds('#comfort-video');
-    const studio = bounds('.studio'), contact = bounds('.contact');
+    const cards = [...document.querySelectorAll('.film-player video')].map(bounds);
+    const contact = bounds('.contact');
     const icons = [...document.querySelectorAll('.process-icon')].map(bounds).reverse();
     const button = bounds(contactButton);
     const point = (x, y) => `${Math.round(clamp(x, 12, width - 12) * 10) / 10} ${Math.round(y * 10) / 10}`;
@@ -120,26 +120,42 @@
       measure.setAttribute('d',d.join(' '));
       filmExits.push(measure.getTotalLength());
     }
-    const firstIn=first.left+first.width*.77;
-    curve([start[0]-width*.10,start[1]-width*.045],[firstIn+width*.09,first.top-width*.085],[firstIn,first.top],true);
-    const exitX=second.left+second.width*.34;
-    if(phone){
-      const x=first.left+first.width*.68, gap=second.top-first.bottom;
-      curve([firstIn-first.width*.40,first.top+first.height*.25],[x-first.width*.30,first.bottom-30],[x,first.bottom]);
+    function crossPair(first, second, approach) {
+      const firstIn=first.left+first.width*.77;
+      curve([approach[0]-width*.10,approach[1]-width*.045],[firstIn+width*.09,first.top-width*.085],[firstIn,first.top],true);
+      const exitX=second.left+second.width*.34;
+      if(phone){
+        const x=first.left+first.width*.68, gap=second.top-first.bottom;
+        curve([firstIn-first.width*.40,first.top+first.height*.25],[x-first.width*.30,first.bottom-30],[x,first.bottom]);
+        markExit();
+        const into=second.left+second.width*.35;
+        curve([x+first.width*.34,first.bottom+gap*.48],[into-second.width*.24,second.top-gap*.48],[into,second.top],true);
+        curve([into+second.width*.4,second.top+second.height*.24],[exitX-second.width*.25,second.bottom-38],[exitX,second.bottom]);
+      }else{
+        const into=second.bottom-second.height*.08;
+        const out=Math.min(first.bottom-first.height*.08,into-(second.left-first.right)*.40);
+        curve([firstIn-first.width*.52,first.top+first.height*.30],[first.right-first.width*.65,out-first.height*.15],[first.right,out]);
+        markExit();
+        const gap=second.left-first.right;
+        curve([first.right+gap*.33,out+(into-out)*.33],[second.left-gap*.33,into-(into-out)*.33],[second.left,into],true);
+        curve([second.left+second.width*.12,into+second.height*.025],[exitX-second.width*.11,second.bottom-second.height*.04],[exitX,second.bottom]);
+      }
       markExit();
-      const into=second.left+second.width*.35;
-      curve([x+first.width*.34,first.bottom+gap*.48],[into-second.width*.24,second.top-gap*.48],[into,second.top],true);
-      curve([into+second.width*.4,second.top+second.height*.24],[exitX-second.width*.25,second.bottom-38],[exitX,second.bottom]);
-    }else{
-      const into=second.bottom-second.height*.08;
-      const out=Math.min(first.bottom-first.height*.08,into-(second.left-first.right)*.40);
-      curve([firstIn-first.width*.52,first.top+first.height*.30],[first.right-first.width*.65,out-first.height*.15],[first.right,out]);
-      markExit();
-      const gap=second.left-first.right;
-      curve([first.right+gap*.33,out+(into-out)*.33],[second.left-gap*.33,into-(into-out)*.33],[second.left,into],true);
-      curve([second.left+second.width*.12,into+second.height*.025],[exitX-second.width*.11,second.bottom-second.height*.04],[exitX,second.bottom]);
+      return exitX;
     }
-    markExit();
+    let approach = start;
+    let exitX;
+    for (let i = 0; i < cards.length; i += 2) {
+      if (i > 0) {
+        const previous = cards[i - 1];
+        const gap = cards[i].top - previous.bottom;
+        approach = [width * .78, cards[i].top - width * .06];
+        curve([exitX + width * .22, previous.bottom + gap * .12],
+          [width * .96, approach[1] + width * .07], approach);
+      }
+      exitX = crossPair(cards[i], cards[i + 1], approach);
+    }
+    const second = cards.at(-1);
     const entry=icons[0], drop=entry.y-second.bottom;
     const shoulder=[exitX+(entry.x-exitX)*.50,second.bottom+drop*(phone?.16:.24)];
     if(phone){
@@ -189,7 +205,7 @@
       node.setAttribute('width',rect.width+2*padding); node.setAttribute('height',rect.height+2*padding);
     }
     protectedElements.forEach(element => {
-      if (!document.createRange || element.matches('.film-player, .process-icon, [data-contact]')) {
+      if (!document.createRange || element.matches('.film-player, .process-icon, [data-contact], .park-thread-mask')) {
         protect(element.getBoundingClientRect(),element.matches('.film-player') ? 0 : element.matches('.process-icon') ? 1 : 6);
       } else {
         const walker = document.createTreeWalker(element,NodeFilter.SHOW_TEXT), range = document.createRange();
@@ -203,8 +219,11 @@
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - viewport - pageStart);
     const desired = [
       start[1] - viewport * 0.86,
-      first.top + first.height * 0.26 - viewport * 0.7,
-      phone ? second.top + second.height * 0.3 - viewport * 0.63 : second.top + second.height * 0.8 - viewport * 0.6,
+      ...cards.map((card, i) => {
+        if (i % 2 === 0) return card.top + card.height * .26 - viewport * .7;
+        return phone ? card.top + card.height * .3 - viewport * .63
+          : card.top + card.height * .8 - viewport * .6;
+      }),
       icons[0].y - viewport * 0.78, icons[1].y - viewport * 0.64,
       icons[2].y - viewport * 0.5, button.y - viewport * 0.55
     ];

@@ -11,7 +11,9 @@ for (const ref of new Set(refs)) assert((await stat(resolve(root, ref))).isFile(
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
 assert.equal(ids.length, new Set(ids).size, 'Duplicate HTML IDs');
 for (const match of html.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(match[1]), 'Broken anchor: ' + match[1]);
-assert.equal((html.match(/<video\b/g) || []).length, 2, 'Two real films required');
-assert.equal((html.match(/preload="none"/g) || []).length, 2, 'Films should load on demand');
+assert.equal((html.match(/<video\b/g) || []).length, 4, 'Four real films required');
+assert.equal((html.match(/preload="none"/g) || []).length, 4, 'Films should load on demand');
+const pageOrder = ['hero-title','smile-video','comfort-video','park-title','balance-video','rocky-video','studio-title','contact-title'];
+assert.deepEqual(ids.filter(id => pageOrder.includes(id)), pageOrder, 'Story scenes and films must stay in order');
 assert(css.includes('prefers-reduced-motion:reduce'), 'Reduced motion support required');
-console.log(`Checked ${new Set(refs).size} local asset references, navigation anchors, two lazy video players, and reduced-motion styles.`);
+console.log(`Checked ${new Set(refs).size} local asset references, navigation anchors, four lazy video players, scene order, and reduced-motion styles.`);

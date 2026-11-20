@@ -12,7 +12,7 @@ function renderFilm(film, i) {
             <p class="film-category">${lines(film.category)}</p>
           </div>
           <div class="film-content">
-            <div class="film-player" data-player>
+            <div class="film-player" data-player${film.aspectRatio ? ` style="aspect-ratio:${film.aspectRatio}"` : ""}>
               <video id="${film.id}-video" controls playsinline preload="none" poster="./assets/${film.slug}-poster.jpg" aria-label="${escape(film.description)}">
                 <source data-src="./assets/${film.slug}.mp4" type="video/mp4">
                 Your browser does not support video. <a href="./assets/${film.slug}.mp4">Download ${escape(film.title.join(" "))}</a>.
@@ -20,7 +20,7 @@ function renderFilm(film, i) {
               <button class="play-overlay" type="button" aria-label="Play ${escape(film.title.join(" "))}"><span class="play-circle"><svg viewBox="0 0 16 18" aria-hidden="true"><path d="M2 1 15 9 2 17Z" fill="currentColor"/></svg></span><span class="play-label">Watch the film <span aria-hidden="true">↗</span></span></button>
               <span class="film-duration" aria-hidden="true">${film.duration}</span>
             </div>
-            <p class="film-note">${lines(film.note)}</p>
+            ${film.note ? `<p class="film-note">${lines(film.note)}</p>` : ""}
             <p class="playback-status" role="status"></p>
           </div>
         </article>`;
@@ -33,7 +33,7 @@ export function renderPage() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10213d">
-  <meta name="description" content="Character-led AI animated advertising films by Piyush. Explore stories for dental, orthodontic, HVAC, and local service businesses.">
+  <meta name="description" content="Character-led animated films by Piyush for orthodontic practices, HVAC businesses, Pilates studios and dog trainers.">
   <meta property="og:title" content="Piyush — Animated stories. Real-world businesses.">
   <meta property="og:description" content="Small business stories, brought to life. Explore character-led animated advertising films.">
   <meta property="og:type" content="website">
@@ -78,7 +78,25 @@ export function renderPage() {
         <span class="eyebrow muted">Selected films / 01—02</span>
       </div>
       <div class="film-grid">
-${films.map(renderFilm).join("\n")}
+${films.slice(0, 2).map(renderFilm).join("\n")}
+      </div>
+      <a class="explore-studio" href="#more-stories"><span aria-hidden="true">↓</span><span class="eyebrow">Scroll to explore</span></a>
+    </section>
+
+    <section class="park-scene" id="more-stories" aria-labelledby="park-title">
+      <svg class="park-seam" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V3C1000 97 480 95 0 15Z"/></svg>
+      <picture>
+        <source media="(max-width: 700px)" srcset="./assets/pilates-park-small.webp">
+        <img src="./assets/pilates-park.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Inside a sunlit Pilates studio, clients exercise on wooden reformers. Through the window, Rocky and his owner work with a dog trainer in the park.">
+      </picture>
+      <h2 id="park-title">Everyday moments.<br><em>Stories that connect.</em></h2>
+      <span class="park-thread-mask" aria-hidden="true"></span>
+    </section>
+
+    <section class="films more-films" aria-label="Pilates and dog training films">
+      <svg class="film-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 115C390 -12 965 95 1440 6V120H0Z"/></svg>
+      <div class="film-grid">
+${films.slice(2).map((film, i) => renderFilm(film, i + 2)).join("\n")}
       </div>
       <a class="explore-studio" href="#studio"><span aria-hidden="true">↓</span><span class="eyebrow">There’s a story behind every film</span></a>
     </section>
@@ -141,7 +159,7 @@ ${films.map(renderFilm).join("\n")}
     <p>Contact details will be available soon.<br>In the meantime, take a look at the films.</p>
     <a class="button button-navy" href="#films" data-close-dialog>Explore the films <span aria-hidden="true">↗</span></a>
   </dialog>
-  <noscript><style>.play-overlay,.film-duration{display:none}</style><p class="noscript-note">Enable JavaScript for the enhanced player, or download the <a href="./assets/the-smile-story.mp4">dental film</a> and <a href="./assets/comfort-at-home.mp4">HVAC film</a>.</p></noscript>
+  <noscript><style>.play-overlay,.film-duration{display:none}</style><p class="noscript-note">Download a film: ${films.map(film => `<a href="./assets/${film.slug}.mp4">${escape(film.title.join(" "))}</a>`).join(" · ")}.</p></noscript>
 </body>
 </html>
 `;

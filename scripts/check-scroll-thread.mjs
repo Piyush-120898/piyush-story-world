@@ -47,6 +47,7 @@ function run(width, viewport = width <= 700 ? 844 : 900) {
     getPointAtLength(length) { return this.samples().find(p => p.length >= length) || this.samples().at(-1); }
   }
   const keys = ['main','svg','path','rail','measure','head','mask','base','cutouts','gradient','turn','hero','wave','first','second','studio','icon1','icon2','icon3','button','contact','project1','project2','step1','step2','step3'];
+  keys.push('third','fourth','project3','project4');
   const el = Object.fromEntries(keys.map(key => [key, new Element(key)]));
   Object.defineProperties(el.main, { clientWidth: { get: () => layout.main[2] }, offsetHeight: { get: () => layout.main[3] } });
   const selectors = { main:'main','.journey-thread':'svg','.journey-thread-path':'path','.journey-thread-rail':'rail','.journey-thread-measure':'measure','.journey-thread-head':'head',
@@ -54,13 +55,15 @@ function run(width, viewport = width <= 700 ? 844 : 900) {
     '.hero':'hero','.film-wave':'wave','#smile-video':'first','#comfort-video':'second','.studio':'studio','[data-contact]':'button','.contact':'contact' };
   const select = key => el[selectors[key]];
   el.svg.querySelector = select;
-  const targets = [el.project1,el.project2,el.step1,el.step2,el.step3,el.button];
+  const projects = [el.project1,el.project2,el.project3,el.project4];
+  const targets = [...projects,el.step1,el.step2,el.step3,el.button];
   const document = { hidden:false,
     documentElement: { get scrollHeight() { return layout.main[3]; } },
     querySelector:select,
     querySelectorAll(selector) {
       if (selector === '.process-icon') return [el.icon1,el.icon2,el.icon3];
-      if (selector === '.film-project') return [el.project1,el.project2];
+      if (selector === '.film-project') return projects;
+      if (selector === '.film-player video') return [el.first,el.second,el.third,el.fourth];
       if (selector === '.process-steps li') return [el.step1,el.step2,el.step3];
       return [el.first,el.second,el.icon1,el.icon2,el.icon3,el.button];
     },
@@ -72,12 +75,18 @@ function run(width, viewport = width <= 700 ? 844 : 900) {
     cancelAnimationFrame:key => frames.delete(key) });
   function fixture(w) {
     const phone = w <= 700;
-    return { main:[0,0,w,phone?2480:2650],hero:[0,0,w,phone?650:960],wave:[0,phone?634:850,w,phone?16:110],
+    const boxes = { main:[0,0,w,phone?2480:2650],hero:[0,0,w,phone?650:960],wave:[0,phone?634:850,w,phone?16:110],
       first:[w*(phone?.43:.26),phone?730:1050,w*(phone?.5:.21),phone?350:530],
       second:[w*(phone?.07:.55),phone?1180:1080,w*(phone?.5:.21),phone?350:530],
       studio:[0,phone?1640:1840,w,520],contact:[0,phone?2160:2360,w,290],
       icon1:[w*(phone?.12:.48),phone?1950:1990,74,74],icon2:[w*(phone?.42:.65),phone?1950:1990,74,74],icon3:[w*(phone?.72:.82),phone?1950:1990,74,74],
       button:[w*(phone?.08:.73),phone?2340:2450,phone?w*.7:250,54] };
+    const offset = phone ? 1250 : 1550;
+    boxes.main[3] += offset;
+    for (const key of ['studio','contact','icon1','icon2','icon3','button']) boxes[key][1] += offset;
+    boxes.third = [...boxes.first]; boxes.third[1] += offset;
+    boxes.fourth = [...boxes.second]; boxes.fourth[1] += offset;
+    return boxes;
   }
   function flush() {
     let steps = 0;
@@ -98,7 +107,7 @@ function run(width, viewport = width <= 700 ? 844 : 900) {
   }
   assert.equal(Number(el.path.style.strokeDashoffset), el.path.getTotalLength(), 'No animated line before scrolling');
   for (let y = 0; y <= max + 20; y += 20) { window.scrollY = Math.min(y,max); events.scroll(); flush(); }
-  assert.deepEqual(activated, ['project1','project2','step3','step2','step1','button'], 'Activate in story order');
+  assert.deepEqual(activated, ['project1','project2','project3','project4','step3','step2','step1','button'], 'Activate in story order');
   assert(Number(el.path.style.strokeDashoffset) < .5, 'Reach the CTA by the bottom');
   assert.equal(el.path.attrs['marker-end'], 'url(#thread-arrow)');
   assert(targets.every(target => target.classes.has('is-journey-reached')));
@@ -116,4 +125,4 @@ function run(width, viewport = width <= 700 ? 844 : 900) {
   return width;
 }
 const widths = [320,390,700,701,1024,1440,1920].map(width => run(width));
-console.log(`Scroll controller passed at ${widths.join(', ')}px: six ordered activations, reverse scroll, CTA completion, responsive resize, reduced motion, and settled animation frames. Browser visual QA remains separate.`);
+console.log(`Scroll controller passed at ${widths.join(', ')}px: eight ordered activations, reverse scroll, CTA completion, responsive resize, reduced motion, and settled animation frames.`);
