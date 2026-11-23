@@ -42,7 +42,7 @@ The implementation accepts `https://` and `mailto:` destinations. Until configur
 
 - `public/assets/the-smile-story.mp4`: supplied orthodontic film, 480 × 848, 78.42 seconds.
 - `public/assets/comfort-at-home.mp4`: supplied HVAC film, 480 × 848, 59.79 seconds.
-- `public/assets/find-your-balance.mp4`: supplied Pilates film, 576 × 1024, 76.13 seconds.
+- `public/assets/find-your-balance.mp4`: web-optimized Pilates film, 720 × 1280, approximately 73 seconds.
 - `public/assets/rockys-next-chapter.mp4`: supplied dog-training film, 480 × 848, 69.04 seconds.
 - `public/assets/pilates-park.webp` and its mobile version illustrate the second pair.
 - Posters are extracted from the corresponding real films.

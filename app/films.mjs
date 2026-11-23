@@ -42,8 +42,8 @@ export const films = [
     category: ["Pilates studios"],
     slug: "find-your-balance",
     description: "Find your balance — Pilates studio animated film",
-    duration: "01:16",
-    aspectRatio: "576 / 1024"
+    duration: "01:13",
+    aspectRatio: "9 / 16"
   },
   {
     id: "rocky",
