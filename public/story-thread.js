@@ -15,7 +15,7 @@
     '.site-header, .hero-copy, .film-caption, .film-player, .film-note, ' +
     '.playback-status, .section-heading, .explore-studio, .studio-intro, ' +
     '.process-intro, .process-icon, .process-steps h3, .process-steps p, ' +
-    '.contact-inner > div, [data-contact], footer, #park-title, .park-thread-mask'
+    '.contact-inner > div, [data-contact], #park-title, .park-thread-mask'
   )];
   const cutouts = svg.querySelector('.thread-content-cutouts');
   const masks = [];

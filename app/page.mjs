@@ -140,7 +140,6 @@ ${films.slice(2).map((film, i) => renderFilm(film, i + 2)).join("\n")}
         <div><p class="eyebrow">Let’s make something worth watching</p><h2 id="contact-title">Your business could<br>be the next story.</h2></div>
         <button class="button button-cream" type="button" data-contact>Start a conversation <span aria-hidden="true">↗</span></button>
       </div>
-      <footer><a class="footer-logo" href="#top" aria-label="Plot &amp; Pitch, back to top">${wordmark}</a><a href="#top">Back to top <span aria-hidden="true">↑</span></a></footer>
     </section>
     <svg class="journey-thread" aria-hidden="true" focusable="false">
       <defs>
@@ -168,6 +167,12 @@ ${films.slice(2).map((film, i) => renderFilm(film, i + 2)).join("\n")}
       </g>
     </svg>
   </main>
+  <footer>
+    <div class="footer-inner">
+      <a class="footer-logo" href="#top" aria-label="Plot &amp; Pitch, back to top">${wordmark}</a>
+      <a class="back-to-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
   <dialog id="contact-dialog" aria-labelledby="dialog-title">
     <button class="dialog-close" type="button" aria-label="Close contact information">×</button>
     <p class="eyebrow">The next chapter</p>
