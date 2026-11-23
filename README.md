@@ -1,4 +1,4 @@
-# Piyush — Story World
+# Plot & Pitch
 
 A responsive single-page animated advertising portfolio based on the selected Story World mockup. HTML, CSS and vanilla JavaScript; Node.js renders the full page and streams the films. The same renderer also produces a static build. No npm dependencies, runtime server, tracking or third-party font requests are required on GitHub Pages.
 
@@ -24,13 +24,13 @@ The finished static website is in `dist/`. `npm run preview` serves that output 
 
 ## GitHub Pages
 
-The public portfolio is hosted at [Piyush Story World](https://piyush-120898.github.io/piyush-story-world/). The source is in [Piyush-120898/piyush-story-world](https://github.com/Piyush-120898/piyush-story-world).
+The [Plot & Pitch portfolio](https://piyush-120898.github.io/piyush-story-world/) is hosted on GitHub Pages. The [source repository](https://github.com/Piyush-120898/piyush-story-world) builds and deploys the site.
 
 Push to `main` to publish an update. GitHub Actions checks the source, runs the Node.js static build and deploys `dist/` to Pages. The Node.js HTTP server is available for local use; Pages serves the generated HTML, JavaScript and assets.
 
 ## Contact destination
 
-Per Piyush's instruction, contact information is deferred. Edit `public/site-config.js` when a real email, WhatsApp or booking link is ready:
+Edit `public/site-config.js` to connect the studio’s email, WhatsApp or booking link:
 
 ```js
 window.STUDIO_CONFIG = Object.freeze({ contactUrl: 'YOUR_REAL_CONTACT_URL' });

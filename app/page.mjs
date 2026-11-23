@@ -3,14 +3,15 @@ import { films } from './films.mjs';
 const escape = text => text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const lines = values => values.map(escape).join('<br>');
 const sectionWave = 'M0 30C330 -50 850 140 1440 20';
+const wordmark = '<img class="studio-wordmark" src="./assets/plot-and-pitch.webp" width="660" height="126" alt="Plot &amp; Pitch">';
 
 function renderFilm(film, i) {
   return `        <article class="film-project${i % 2 ? " film-project-reverse" : ""}" aria-labelledby="${film.id}-title">
           <div class="film-caption">
             <span class="film-number" aria-hidden="true">${String(i+1).padStart(2,"0")}</span>
-            <h3 id="${film.id}-title">${lines(film.title)}</h3>
+            <p class="film-category">${escape(film.category.join(" "))}</p>
             <span class="orange-rule" aria-hidden="true"></span>
-            <p class="film-category">${lines(film.category)}</p>
+            <h3 id="${film.id}-title">${lines(film.title)}</h3>
           </div>
           <div class="film-content">
             <div class="film-player" data-player${film.aspectRatio ? ` style="aspect-ratio:${film.aspectRatio}"` : ""}>
@@ -47,11 +48,11 @@ export function renderPage() {
     });
   </script>
   <meta name="theme-color" content="#10213d">
-  <meta name="description" content="Character-led animated films by Piyush for orthodontic practices, HVAC businesses, Pilates studios and dog trainers.">
-  <meta property="og:title" content="Piyush — Animated stories. Real-world businesses.">
-  <meta property="og:description" content="Small business stories, brought to life. Explore character-led animated advertising films.">
+  <meta name="description" content="Plot &amp; Pitch creates short AI-animated commercials for local businesses. See how a customer's everyday problem becomes a story about your team.">
+  <meta property="og:title" content="Plot &amp; Pitch — Animated commercials for local businesses">
+  <meta property="og:description" content="Watch four short commercials for orthodontics, HVAC, Pilates and dog training.">
   <meta property="og:type" content="website">
-  <title>Piyush — Animated stories. Real-world businesses.</title>
+  <title>Plot &amp; Pitch — Animated commercials for local businesses</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preload" href="./assets/story-world.webp" as="image" media="(min-width: 701px)" fetchpriority="high">
   <link rel="preload" href="./assets/story-world-small.webp" as="image" media="(max-width: 700px)" fetchpriority="high">
@@ -69,7 +70,7 @@ export function renderPage() {
         <img src="./assets/story-world.webp" alt="" width="1920" height="1280" fetchpriority="high">
       </picture>
       <header class="site-header">
-        <a class="wordmark" href="#top" aria-label="Piyush, home">PIYUSH<span class="brand-dot">.</span></a>
+        <a class="wordmark" href="#top" aria-label="Plot &amp; Pitch, home">${wordmark}</a>
         <nav aria-label="Main navigation">
           <a href="#films">Films</a>
           <a href="#studio">Studio</a>
@@ -77,9 +78,9 @@ export function renderPage() {
         </nav>
       </header>
       <div class="hero-copy">
-        <p class="eyebrow hero-eyebrow">04 / Story world</p>
+        <p class="eyebrow hero-eyebrow">Animation studio</p>
         <h1 id="hero-title">Animated stories.<br><em>Real-world businesses.</em></h1>
-        <p class="hero-subtitle">Character-led AI films for your social media.</p>
+        <p class="hero-subtitle">Short AI-animated commercials starring your business.</p>
         <a class="button button-navy" href="#films">Explore the films <svg viewBox="0 0 16 18" aria-hidden="true"><path d="M2 1 15 9 2 17Z" fill="currentColor"/></svg></a>
       </div>
       <a class="hero-scroll" href="#films" aria-label="Scroll to the films"><span aria-hidden="true">↓</span></a>
@@ -88,8 +89,8 @@ export function renderPage() {
     <section class="films" id="films" aria-labelledby="films-title">
       <svg class="film-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110C350 14 925 -5 1440 40V120H0Z"/></svg>
       <div class="section-heading">
-        <h2 class="eyebrow" id="films-title">Two businesses. Two stories.</h2>
-        <span class="eyebrow muted">Selected films / 01—02</span>
+        <h2 class="eyebrow" id="films-title">Find a film for your industry</h2>
+        <span class="eyebrow muted">Selected commercials</span>
       </div>
       <div class="film-grid">
 ${films.slice(0, 2).map(renderFilm).join("\n")}
@@ -119,16 +120,16 @@ ${films.slice(2).map((film, i) => renderFilm(film, i + 2)).join("\n")}
       <svg class="studio-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="${sectionWave}V90H0Z"/></svg>
       <div class="studio-inner">
         <div class="studio-intro">
-          <p class="eyebrow">The person behind the pictures</p>
-          <h2 id="studio-title">Made by<br>Piyush<span>.</span></h2>
-          <p class="studio-tagline">Small business stories,<br>brought to life.</p>
+          <p class="eyebrow">How we work</p>
+          <h2 id="studio-title">Inside<br>the studio<span>.</span></h2>
+          <p class="studio-tagline">Your team can star in its own animated ad.</p>
         </div>
         <div class="process">
-          <p class="process-intro">Your business has a story.<br>I turn it into a world people can watch.</p>
+          <p class="process-intro">We open with a scene your customers recognize, show how your team helps, and close with your invitation to call or book.</p>
           <ol class="process-steps">
-            <li><span class="process-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="12" y="5" width="25" height="36" rx="1"/><path d="M18 13h13M18 19h13M18 25h13M18 31h8"/></svg></span><h3>Brief</h3><p>Your business.<br>Your audience.</p></li>
-            <li><span class="process-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="m9 34-2 8 8-2L40 15 33 8 9 34ZM29 12l7 7M9 34l6 6M33 8l4-4 7 7-4 4"/></svg></span><h3>Story</h3><p>Characters with<br>something to say.</p></li>
-            <li><span class="process-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 19h36v23H6zM6 19 3 9l35-7 3 10-35 7ZM12 8l-3 9M24 5l-4 9M35 3l-4 9M20 25l10 6-10 6z"/></svg></span><h3>Film</h3><p>Animation, sound<br>&amp; your brand.</p></li>
+            <li><span class="process-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="12" y="5" width="25" height="36" rx="1"/><path d="M18 13h13M18 19h13M18 25h13M18 31h8"/></svg></span><h3>Brief</h3><p>Tell us what brings customers to you.</p></li>
+            <li><span class="process-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="m9 34-2 8 8-2L40 15 33 8 9 34ZM29 12l7 7M9 34l6 6M33 8l4-4 7 7-4 4"/></svg></span><h3>Story</h3><p>You approve the script and characters.</p></li>
+            <li><span class="process-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 19h36v23H6zM6 19 3 9l35-7 3 10-35 7ZM12 8l-3 9M24 5l-4 9M35 3l-4 9M20 25l10 6-10 6z"/></svg></span><h3>Film</h3><p>We animate, then refine the cut with you.</p></li>
           </ol>
         </div>
       </div>
@@ -139,7 +140,7 @@ ${films.slice(2).map((film, i) => renderFilm(film, i + 2)).join("\n")}
         <div><p class="eyebrow">Let’s make something worth watching</p><h2 id="contact-title">Your business could<br>be the next story.</h2></div>
         <button class="button button-cream" type="button" data-contact>Start a conversation <span aria-hidden="true">↗</span></button>
       </div>
-      <footer><a class="footer-logo" href="#top" aria-label="Piyush, back to top">PIYUSH.</a><p>Storytelling. Animation. A little imagination.</p><a href="#top">Back to top <span aria-hidden="true">↑</span></a></footer>
+      <footer><a class="footer-logo" href="#top" aria-label="Plot &amp; Pitch, back to top">${wordmark}</a><a href="#top">Back to top <span aria-hidden="true">↑</span></a></footer>
     </section>
     <svg class="journey-thread" aria-hidden="true" focusable="false">
       <defs>

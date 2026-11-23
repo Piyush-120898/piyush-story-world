@@ -100,3 +100,13 @@ main{overflow-x:clip}
   .film-project-reverse .film-caption{order:1}
   .film-project-reverse .film-content{order:2}
 }
+.wordmark,.footer-logo{display:inline-flex;align-items:center;flex:none}
+.studio-wordmark{display:block;width:clamp(134px,15vw,202px);height:auto}
+.footer-logo{padding:10px 13px;background:var(--cream);border-radius:4px}
+.footer-logo .studio-wordmark{width:126px}
+.film-caption .film-category{color:#ffe3bf;font:700 clamp(14px,1.4vw,21px)/1.2 var(--sans);letter-spacing:0}
+.film-caption .orange-rule{width:32px;height:2px;margin:11px 0 14px}
+@media(max-width:700px){
+  .wordmark .studio-wordmark{width:clamp(108px,30vw,150px)}
+  .film-caption .film-category{font-size:clamp(14px,4vw,20px)}
+}

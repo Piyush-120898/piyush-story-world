@@ -1,9 +1,9 @@
 {
-  "name": "piyush-story-world",
+  "name": "plot-and-pitch",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Character-led animated advertising portfolio by Piyush",
+  "description": "Plot & Pitch animated commercials for local businesses",
   "engines": {
     "node": ">=22"
   },
