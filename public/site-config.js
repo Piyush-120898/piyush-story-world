@@ -1,3 +1,5 @@
-// Add a real mailto:, https://wa.me/, or booking URL when ready.
-// Leaving this empty opens an honest availability dialog, never a fake form.
-window.STUDIO_CONFIG = Object.freeze({ contactUrl: '' });
+window.STUDIO_CONFIG = Object.freeze({
+  contactUrl: 'https://wa.me/12089063494?text=' + encodeURIComponent(
+    'Hi Plot & Pitch! I saw your films and I’m interested in an animated ad for my business.'
+  )
+});
