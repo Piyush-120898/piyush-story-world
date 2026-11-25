@@ -55,16 +55,14 @@ for (const player of players) {
 }
 
 const dialog = document.querySelector('#contact-dialog');
-document.querySelector('[data-contact]').addEventListener('click', () => {
-  const url = window.STUDIO_CONFIG?.contactUrl?.trim();
-  if (url && /^(https:\/\/|mailto:)/i.test(url)) {
-    window.location.assign(url);
-  } else {
-    dialog.showModal();
-  }
-});
+const whatsappLink = dialog.querySelector('[data-whatsapp]');
+const whatsappUrl = window.STUDIO_CONFIG?.contactUrl?.trim();
+if (whatsappUrl && /^https:\/\//i.test(whatsappUrl)) {
+  whatsappLink.href = whatsappUrl;
+  whatsappLink.hidden = false;
+}
+document.querySelector('[data-contact]').addEventListener('click', () => dialog.showModal());
 document.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
-document.querySelector('[data-close-dialog]').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', event => {
   if (event.target === dialog) {
     const rect = dialog.getBoundingClientRect();

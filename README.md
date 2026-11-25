@@ -30,13 +30,13 @@ Push to `main` to publish an update. GitHub Actions checks the source, runs the 
 
 ## Contact destination
 
-“Start a conversation” opens the studio’s WhatsApp chat with an editable inquiry. To change the destination, edit `public/site-config.js`:
+“Start a conversation” opens a dialog with a WhatsApp chat and an email link to plotandpitch@gmail.com. Edit the email link in `app/page.mjs`. To change the WhatsApp destination, edit `public/site-config.js`:
 
 ```js
 window.STUDIO_CONFIG = Object.freeze({ contactUrl: 'YOUR_REAL_CONTACT_URL' });
 ```
 
-The implementation accepts `https://` and `mailto:` destinations. Until configured, the conversation button opens an accessible dialog explaining that contact details will be available soon. It never collects data or claims a message was sent.
+The WhatsApp link includes an editable inquiry. The email link opens the visitor’s email app.
 
 ## Assets and playback
 

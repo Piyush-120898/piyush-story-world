@@ -138,7 +138,7 @@ ${films.slice(2).map((film, i) => renderFilm(film, i + 2)).join("\n")}
     <section class="contact" id="contact" aria-labelledby="contact-title">
       <div class="contact-inner">
         <div><p class="eyebrow">Let’s make something worth watching</p><h2 id="contact-title">Your business could<br>be the next story.</h2></div>
-        <button class="button button-cream" type="button" data-contact>Start a conversation <span aria-hidden="true">↗</span></button>
+        <button class="button button-cream" type="button" data-contact aria-haspopup="dialog" aria-controls="contact-dialog">Start a conversation <span aria-hidden="true">↗</span></button>
       </div>
     </section>
     <svg class="journey-thread" aria-hidden="true" focusable="false">
@@ -175,10 +175,11 @@ ${films.slice(2).map((film, i) => renderFilm(film, i + 2)).join("\n")}
   </footer>
   <dialog id="contact-dialog" aria-labelledby="dialog-title">
     <button class="dialog-close" type="button" aria-label="Close contact information">×</button>
-    <p class="eyebrow">The next chapter</p>
-    <h2 id="dialog-title">A new story<br>starts here<span>.</span></h2>
-    <p>Contact details will be available soon.<br>In the meantime, take a look at the films.</p>
-    <a class="button button-navy" href="#films" data-close-dialog>Explore the films <span aria-hidden="true">↗</span></a>
+    <h2 id="dialog-title">Get in touch<span>.</span></h2>
+    <div class="contact-options">
+      <a class="button button-navy" data-whatsapp hidden>Chat on WhatsApp <span aria-hidden="true">↗</span></a>
+      <a class="contact-email" href="mailto:plotandpitch@gmail.com">Email us <span>plotandpitch@gmail.com</span></a>
+    </div>
   </dialog>
   <noscript><style>.play-overlay,.film-duration{display:none}</style><p class="noscript-note">Download a film: ${films.map(film => `<a href="./assets/${film.slug}.mp4">${escape(film.title.join(" "))}</a>`).join(" · ")}.</p></noscript>
 </body>

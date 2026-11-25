@@ -117,3 +117,8 @@ main{overflow-x:clip}
   .wordmark .studio-wordmark{width:clamp(108px,30vw,150px)}
   .film-caption .film-category{font-size:clamp(14px,4vw,20px)}
 }
+.contact-options{display:grid;gap:16px;margin-top:28px}
+.contact-options [hidden]{display:none}
+.contact-email{display:grid;justify-items:center;gap:4px;padding:10px 14px;border:1px solid currentColor;border-radius:20px;font-weight:700}
+.contact-email span{font-size:14px;font-weight:400;overflow-wrap:anywhere}
+.contact-email:hover span{text-decoration:underline}
